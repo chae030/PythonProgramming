@@ -14,16 +14,16 @@ def choice() :
                 return 0
         else :
             check = customer.purchase(drink)
+            if check == 1 :
+                break
 
     return 1
 
 
 def program() : # return 0 : 프로그램 종료
     program = choice()
-    if program == 0 :
-        return
     while program :
-        buy_more = input("추가로 이용하시겠습니까? y / n ")
+        buy_more = input("추가로 이용하시겠습니까? (y / n) : ")
         if (buy_more.lower() == "n") :
             print("이용해 주셔서 감사합니다.\n")
             return
