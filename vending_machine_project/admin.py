@@ -1,8 +1,10 @@
 # 관리자 모드
 
-product_list = ["coke", "water"]
-price_list = [3200, 950]
-stock_list = [5, 7]
+import customer
+
+product_list = []
+price_list = []
+stock_list = []
 
 def print_drink() :
     print("\n상품 목록", product_list, '\n')
@@ -31,7 +33,7 @@ def admin_start() :
     while True :
         admin_menu()
         while True :
-            restart = input("관리자 모드를 계속 실행하시겠습니까? (y / n) : ")
+            restart = input("\n관리자 모드를 계속 실행하시겠습니까? (y / n) : ")
             if restart.lower() == 'y' :
                 break
             elif restart.lower() == 'n' :
@@ -46,26 +48,26 @@ def admin_menu() :
         print("\n실행할 메뉴를 선택하세요.")
         print("1. 재고 현황  2. 재고 채우기  3. 음료 항목 추가  4. 음료 항목 삭제  5. 가격 수정  6. 품절 처리  7. 수익 조회\n")
         print('*'*40)
-        menu = int(input())
-        if menu == 1 :
+        menu = input()
+        if menu == '1' :
             show_stock()
             return
-        elif menu == 2 :
+        elif menu == '2' :
             fill_stock()
             return
-        elif menu == 3 :
+        elif menu == '3' :
             add_product()
             return
-        elif menu == 4 :
+        elif menu == '4' :
             remove_product()
             return
-        elif menu == 5 :
+        elif menu == '5' :
             edit_price()
             return
-        elif menu == 6 :
+        elif menu == '6' :
             mark_soldout()
             return
-        elif menu == 7 :
+        elif menu == '7' :
             show_profit()
             return
         else :
@@ -73,38 +75,49 @@ def admin_menu() :
 
 
 def show_stock() :
-    print("현재 재고 현황")
-    print(product_list, stock_list)
+    print("\n현재 재고 현황\n")
+    if len(product_list) == 0 :
+        print("현재 등록된 재고가 없습니다.")
+    for i in range(len(product_list)) :
+        print(f"제품명 : {product_list[i]}, 재고 : {stock_list[i]}")
+
 
 def fill_stock() :
     while True :
-        product = input("재고를 채울 품목을 입력하세요 : ")
-        if product in product_list :
+        product = input("\n재고를 채울 품목을 입력하세요 : ")
+        if len(product_list) == 0 :
+            print("현재 등록된 상품이 없습니다. 먼저 상품을 등록해주세요.")
+            return
+        elif product in product_list :
             stock = int(input("채울 수량을 입력하세요 : "))
             if stock < 0 :
                 print("수량을 잘못 입력하셨습니다.")
                 continue
             else :
-                product_list[product.index()] += stock
-                print(f"{product}의 재고는 현재 {product_list[product.index()]}개 입니다.")
+                stock_list[product.index(product)] += stock
+                print(f"{product}의 재고는 현재 {stock_list[product_list.index(product)]}개 입니다.")
                 return
         else :
             print(f"'{product}' 항목이 제품 리스트에 없습니다. 다시 입력해주세요.")
 
 
 def add_product() :
-    product = input("추가할 제품명을 입력하세요 : ")
-    price = int(input(f"{product}의 가격을 입력하세요"))
-    stock = int(input(f"{product}의 초기 수량을 입력하세요."))
+    product = input("\n추가할 제품명을 입력하세요 : ")
+    price = int(input(f"{product}의 가격을 입력하세요 : "))
+    stock = int(input(f"{product}의 초기 수량을 입력하세요 : "))
     product_list.append(product)
     price_list.append(price)
     stock_list.append(stock)
+    print(f"{product} : {price}원, 수량 {stock}개로 등록되었습니다.")
 
 
 def remove_product() :
     while True :
-        product = input("삭제할 제품명을 입력하세요 : ")
-        if product not in product_list :
+        product = input("\n삭제할 제품명을 입력하세요 : ")
+        if len(product_list) == 0 :
+            print("현재 등록된 상품이 없어 삭제할 수 없습니다.")
+            return
+        elif product not in product_list :
             print(f"{product}가 제품 목록에 없습니다. 다시 입력해주세요.")
         else :
             while True :
@@ -125,7 +138,7 @@ def remove_product() :
 
 def edit_price() :
     while True :
-        product = input("가격을 수정할 제품명을 입력해주세요 : ")
+        product = input("\n가격을 수정할 제품명을 입력해주세요 : ")
         if product not in product_list :
             print(f"{product}가 제품 목록에 없습니다. 다시 입력해주세요.")
         else :
@@ -135,14 +148,16 @@ def edit_price() :
                     print("가격은 0 이하로 설정할 수 없습니다.")
                 else :
                     price_list[product_list.index(product)] = price
-                    print(f"{product}의 가격이 {price_list[product_list.index(product)]}로 변경되었습니다.")
+                    print(f"{product}의 가격이 {price_list[product_list.index(product)]}원으로 변경되었습니다.")
                     return
 
 
 def mark_soldout() :
     while True :
-        product = input("품절 처리할 제품명을 입력해주세요 : ")
-        if product not in product_list :
+        product = input("\n품절 처리할 제품명을 입력해주세요 : ")
+        if len(product_list) == 0 :
+            print("현재 등록된 상품이 없어 품절 처리할 수 없습니다.")
+        elif product not in product_list :
             print(f"{product}가 제품 목록에 없습니다. 다시 입력해주세요.")
         else :
             stock_list[product_list.index(product)] = 0
@@ -151,4 +166,4 @@ def mark_soldout() :
 
 
 def show_profit() :
-    pass
+    print(f"\n총 수익 : {customer.total_profit} 원")

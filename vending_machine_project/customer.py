@@ -5,6 +5,8 @@ import admin
 
 product_list = admin.product_list
 price_list = admin.price_list
+stock_list = admin.stock_list
+total_profit = 0
 
 def purchase(product) :
     if product in product_list :
@@ -17,18 +19,26 @@ def purchase(product) :
 
 
 def check_payment(product) :
+    global total_profit
     index = product_list.index(product)
     price = price_list[index]
     while True :
+        if stock_list[index] == 0 :
+            print(f"현재 {product}의 재고가 0입니다.")
+            break
         print(f"\n{product}의 금액은 {price}입니다.")
         payment = int(input("금액을 지불하세요 (지불할 금액 입력) : "))
         if payment == price :
             print("\n정상 결제 완료되었습니다.")
-            print(f"{product}가 나왔습니다.\n")
+            print(f"{product}가 나왔습니다.")
+            total_profit += price
+            stock_list[index] -= 1
             break
         elif payment > price :
             get_change(price, payment)
-            print(f"{product}가 나왔습니다.\n")
+            print(f"{product}가 나왔습니다.")
+            total_profit += price
+            stock_list[index] -= 1
             break
         else :
             print("금액이 부족합니다. 다시 결제해주세요.")
