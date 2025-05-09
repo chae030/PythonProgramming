@@ -3,7 +3,7 @@ def sum_odd_fibonacci_below(a, b, n) :
     fib = fibonacci_below(a, b, n)
     result = 0
     for f in fib :
-        if (f < n) and is_add(f) :
+        if (f < n) and is_odd(f) :
             result += f
     return result
 
@@ -11,7 +11,7 @@ def next_fibonacci(a, b) :
     # 두 항으로부터 다음 피보나치 수열의 값을 반환
     return (a + b)
     
-def is_add(n) :
+def is_odd(n) :
     # n이 홀수이면 True, 아니면 False 를 반환
     if n % 2 == 0 :
         return False
