@@ -1,0 +1,9 @@
+word	meaning
+decorate	장식하다
+refuse	거절하다
+confidential	기밀의
+federal	연합의
+necessary	필요한
+edition	판
+launch	대형 보트, 진수시키다
+advertisement	광고
