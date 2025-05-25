@@ -28,6 +28,39 @@ def file_to_dict(word_file_path:pathlib.Path, separator:str):
 
     """
     
+    if not word_file_path.exists():
+        return {}
+
+    content = word_file_path.read_text(encoding='utf-8').strip()
+    if not content:
+        return {}
+
+    word_dict = {}
+    lines = content.splitlines()
+
+    for i, line in enumerate(lines):
+        # 헤더 무시
+        if i == 0 and line.strip().lower() == f"word{separator}meaning":
+            continue
+
+        # separator가 정확히 하나만 있어야 함
+        if line.count(separator) != 1:
+            continue
+
+        word, meaning = line.split(separator)
+
+        # 양쪽 공백 제거
+        word = word.strip()
+        meaning = meaning.strip()
+
+        # 단어나 뜻이 비어 있으면 무시
+        if not word or not meaning:
+            continue
+
+        word_dict[word] = meaning
+
+    return word_dict
+    
 
 
 # All executable code in this file must be inside functions.

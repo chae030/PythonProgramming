@@ -7,3 +7,13 @@ necessary	필요한
 edition	판
 launch	대형 보트, 진수시키다
 advertisement	광고
+apple	사과
+banana	바나나
+grape	포도
+car	자동차
+book	책
+happy	행복한
+sad	슬픈
+river	강
+mountain	산
+computer	컴퓨터
