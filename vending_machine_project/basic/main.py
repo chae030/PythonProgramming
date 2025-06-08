@@ -1,7 +1,7 @@
 # 자판기 프로그램
 
-import customer
-import admin
+import vending_machine_project.basic.customer as customer
+import vending_machine_project.basic.admin as admin
 
 def choice() :
     check = 1
@@ -46,3 +46,4 @@ print('*'*40)
 program()
 print("\n프로그램을 종료합니다.\n")
 print('*'*40)
+
