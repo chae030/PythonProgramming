@@ -1,7 +1,7 @@
 # 자판기 프로그램
 
-import vending_machine_project.basic.customer as customer
-import vending_machine_project.basic.admin as admin
+import customer
+import admin
 
 def choice() :
     check = 1

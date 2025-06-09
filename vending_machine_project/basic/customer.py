@@ -1,7 +1,7 @@
 # 소비자 모드
 # 관리자 모드 import 해서 음료 리스트, 금액 리스트 불러오기
 
-import vending_machine_project.basic.admin as admin
+import admin
 
 product_list = admin.product_list
 price_list = admin.price_list

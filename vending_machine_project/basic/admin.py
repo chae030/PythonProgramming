@@ -1,6 +1,6 @@
 # 관리자 모드
 
-import vending_machine_project.basic.customer as customer
+import customer
 
 product_list = []
 price_list = []
